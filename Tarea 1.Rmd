@@ -121,24 +121,26 @@ ggplot(gapminder, aes(lifeExp, year, colour=continent))+
   labs(x="Esperanza de vida (en años)" ,y ="Año tomado en cuenta", colour="Continente")
 
 ```
-El hecho de que aunque se haya quitado la capa del geom_point() se vean las curvas de regresion es debido a que el programa ya conoce la distribucion de los datos y ...
+El hecho de que aunque se haya quitado la capa del __geom_point()__ se vean las curvas de regresion es debido a que en las lineas de codigo ya se le indico al programa la base de datos con la cual se quiere trabajar y las variables a analizar. Como el programa tiene esta informacion puede calcular sin problema los distintos valores promedio de una variable para un valor fijo de la otra. Al utilizar la funcion __geom_smooth()__ le estamos pidiendo que grafique una curva que sera la que mejor se ajuste a los datos, y como resultado obtenemos unicamente las lineas sin los puntos ya que omitimos la capa de la gramatica grafica que los mostraba.
 
 \newpage
 
-##Ejercicio 3
+#Ejercicio 3
 
 ```{r}
 ggplot(gapminder, aes(gdpPercap, lifeExp, colour=continent))+
-  geom_point()+
+  geom_jitter()+
   facet_wrap(~continent)+
   labs(x="Producto Interno Bruto per capita en US$" ,y ="Esperanza de vida", colour="Continente")
 ```
 
-Para este caso seria conveniente separar el grafico en subcategorias, para poder analizar y comparar con otros casos con mas facilidad. Para ello utilizamos la funcion facet_wrap() y graficamos los datos por continente. La conclusion mas importante de este grafico es que en la mayoria de los continentes parece haber una relacion entre el PBI per capita y la esperanza de vida, es decir, a mayor esperanza de vida mayor PBI per capita. El unico continente en el cual no se nota claramente esta relacion es el continente africano.
+Segun lo escrito en su libro **"Elegant graphics for data analysis"** el experto en datos __Hadley Wickham__ menciona que hay tres maneras de lidiar con el sobreploteo. Una es utilizando la funcion __geom_jitter()__, la otra es utilizando los ya conocidos boxplot(diagrama de cajas),y finalmente la ultima es utilizando el vioplot(grafico del violin). Para este caso especifico es conveniente utilizar la funcion __geom_jitter()__ ya que es la mas representativa y tambien la mas entendible. El grafico de cajas solamente nos resume la distribucion de los datos con cinco numeros, y el grafico de violin es de comprension compleja.
+
+Tambien decidimos separar el grafico en subcategorias, ya que una de las desventajas de la funcion __geom_jitter()__ es que no sirve para cantidades muy grandes de datos. Al separar por continente con la funcion __facet_wrap()__ esta desventaja se ve disminuida y es mas facil hacer comparaciones entre continentes. La conclusion mas importante de este grafico es que en la mayoria de los continentes parece haber una relacion entre el PBI per capita y la esperanza de vida, es decir, a mayor esperanza de vida mayor PBI per capita. El unico continente en el cual no se nota claramente esta relacion es el continente africano.
 
 \newpage
 
-##Ejercicio 4
+#Ejercicio 4
 
 ```{r}
 ggplot(subset(gapminder, continent=continent ), aes(x = gdpPercap, y = year, color = country)) +
