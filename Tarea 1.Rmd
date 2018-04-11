@@ -152,3 +152,24 @@ ggplot(subset(gapminder, continent=continent ), aes(x = gdpPercap, y = year, col
 \newpage
 
 #Ejercicio 5
+
+```{r, echo=F}
+AmericaS=data.frame(gapminder[c((49:60),(133:144),(169:180),(277:288),(301:312),(445:456),(1189:1212),(1621:1644)), 1:6])
+```
+
+```{r}
+ggplot(AmericaS, aes(year, gdpPercap, colour=country))+
+  geom_line(size=1)+
+  geom_point()+
+  labs(x="Año tomado en cuenta" , y ="PBI per cápita en US$", colour="País")
+
+```
+
+
+En este grafico podemos analizar como varia el PBI per capita a lo largo de los años en los distintos paises de América del sur. Es interesante denotar que ningun pais ha tenido un crecimiento constante del PBI. Los casos de Bolivia y Paraguay se han mantenido ultimos durante varios años. En el caso de nuestro pais, se nota que ha crecido su PBI durante años hasta llegar al año 2002, esto probablemente sea debido a la crisis ya que años despues se puede ver como continua creciendo.
+
+
+
+
+
+
