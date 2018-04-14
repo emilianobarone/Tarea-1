@@ -133,7 +133,7 @@ El hecho de que aunque se haya quitado la capa del __geom_point()__ se vean las 
 
 ```{r}
 ggplot(gapminder, aes(gdpPercap, lifeExp))+
-  geom_jitter()+
+  geom_jitter(alpha=1/3)+
   facet_wrap(~continent)+
   labs(x="Producto Interno Bruto per capita en US$" ,y ="Esperanza de vida", colour="Continente")
 ```
@@ -148,7 +148,7 @@ Tambien decidimos separar el grafico en subcategorias, ya que una de las desvent
 
 ```{r}
 ggplot(gapminder , aes(x = year, y = gdpPercap, group=country)) +
-  geom_line() + facet_wrap(~ continent) +
+  geom_line(alpha=1/3) + facet_wrap(~ continent) +
   labs(x="Año tomado en cuenta" ,y ="Producto Interno Bruto per capita en US$")
 ```
 
