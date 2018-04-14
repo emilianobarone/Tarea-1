@@ -5,7 +5,7 @@ date: "9/4/2018"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE, cache=TRUE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -56,13 +56,6 @@ vc1 + geom_smooth(method = "lm")
 
 Hacer un gráfico de dispersión que tenga en el eje `y` `year` y en el eje `x`  `lifeExp`, los puntos deben estar coloreados por la variable `continent`. Para este plot ajustá una recta de regresión para cada continente sin incluir las barras de error. Las etiquetas de los ejes deben ser claras y describir las variables involucradas. Incluir un `caption` en la figura con algún comentario de interés que describa el gráfico.
 
-```{r, echo=FALSE, eval=FALSE}
-
-ggplot(gapminder, aes(year, lifeExp,
-                      colour=continent)) +
-    geom_point() +
-    geom_smooth(method="lm", se=FALSE)
-```
 
 
 ## Ejercicio 2 
@@ -75,8 +68,8 @@ Omitir la capa de  `geom_point` del gráfico anterior. Las lineas aún aparecen 
 El siguiente es un gráfico de dispersión entre `lifeExp` y `gdpPercap`  coloreado por la variable `continent`. Usando como elemento estético color (`aes`) nosotros podemos distinguir los distintos continentes usando diferentes colores de similar manera usando forma (`shape`).
 
 ```{r, echo = FALSE}
-ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-    geom_point(aes(colour = continent))
+ggplot(gapminder, aes(gdpPercap, lifeExp, colour = continent)) +
+    geom_point() 
 ```
 
 El gráfico anterior está sobrecargado, ¿de que forma modificarías el gráfico para que sea más clara la comparación para los distintos continentes y porqué?
@@ -84,11 +77,12 @@ Las etiquetas de los ejes deben ser claras y describir las variables involucrada
 
 ## Ejercicio 4
 
-Hacer un gráfico de lineas que tenga en el eje `y` `year` y en el eje `x`  `gdpPercap` para cada continente en una misma ventana gráfica. En cada continenete, el gráfico debe contener una linea para cada país a lo largo del tiempo (serie de tiempo de `gdpPercap`). Las etiquetas de los ejes deben ser claras y describir las variables involucradas. Incluir un `caption` en la figura con algún comentario de interés que describa el gráfico.
+Hacer un gráfico de lineas que tenga en el eje `x` `year` y en el eje `y`  `gdpPercap` para cada continente en una misma ventana gráfica. En cada continente, el gráfico debe contener una linea para cada país a lo largo del tiempo (serie de tiempo de `gdpPercap`). Las etiquetas de los ejes deben ser claras y describir las variables involucradas. Incluir un `caption` en la figura con algún comentario de interés que describa el gráfico.
 
 ## Ejercicio 5 
 
 Usando los datos `gapminder` seleccione una visualización que describa algún aspecto de los datos que no exploramos. Comente algo interesante que se puede aprender de su gráfico.
+
 
 \newpage
 
@@ -108,7 +102,17 @@ ggplot(gapminder, aes(lifeExp, year, colour=continent))+
   labs(x="Esperanza de vida (en años)" ,y ="Año tomado en cuenta", colour="Continente")
 
 ```
-En este grafico se puede apreciar como varia la esperanza de vida a lo largo del tiempo dependiendo del continente bajo estudio. El caso que mas resalta es el del continente de Oceania, el cual siempre mantuvo una muy buena esperanza de vida, aunque en los alrededores del año 2005 se vio levemente superada por Asia y posteriormente por Europa.
+En este grafico se puede apreciar como varia la esperanza de vida a lo largo del tiempo dependiendo del continente bajo estudio. El caso que mas resalta es el del continente de Oceania, el cual siempre mantuvo una muy buena esperanza de vida, aunque en los alrededores del año 2005 se vio levemente superada por Asia y posteriormente por Europa. 
+
+El análisis de regresión ajusta una curva a travéz de los datos que representa la media de Y dado un valor
+especificado de X. Si ajustamos una regresión lineal a los datos consideramos “la curva media” como aquella
+que mejor ajusta a los datos.
+
+
+
+
+
+
 
 
 \newpage
@@ -128,7 +132,7 @@ El hecho de que aunque se haya quitado la capa del __geom_point()__ se vean las 
 #Ejercicio 3
 
 ```{r}
-ggplot(gapminder, aes(gdpPercap, lifeExp, colour=continent))+
+ggplot(gapminder, aes(gdpPercap, lifeExp))+
   geom_jitter()+
   facet_wrap(~continent)+
   labs(x="Producto Interno Bruto per capita en US$" ,y ="Esperanza de vida", colour="Continente")
@@ -143,13 +147,21 @@ Tambien decidimos separar el grafico en subcategorias, ya que una de las desvent
 #Ejercicio 4
 
 ```{r}
-ggplot(subset(gapminder, continent=continent ), aes(x = gdpPercap, y = year, color = country)) +
-  geom_line(show.legend = FALSE) + facet_wrap(~ continent) +
-  scale_color_manual(values = country_colors)+
-  labs(x="Producto Interno Bruto per capita en US$" ,y ="Año tomado en cuenta", colour="Continente")
+ggplot(gapminder , aes(x = year, y = gdpPercap, group=country)) +
+  geom_line() + facet_wrap(~ continent) +
+  labs(x="Año tomado en cuenta" ,y ="Producto Interno Bruto per capita en US$")
 ```
 
-...
+En el siguiente grafico podemos ver la evolucion del PBI per capita por pais en cada continente a lo largo del tiempo. Podemos notar que el continente europeo es en el cual el Pbi per capita parece aumentar cada vez mas a lo largo del tiempo. En el continente americano hay un especie de comportamiento general y dos casos que presentan mayor crecimiento, los cuales parecerian ser los paises de Estados Unidos y Canada. En el caso del continente asiatico, a principios de los años 1950 un pais presenta un pbi considerado extremadamente alto en comparacion con los otros paises del mundo.
+
+```{r}
+dplyr::filter(gapminder, year<1990, gdpPercap>80000)
+
+```
+
+Aqui podemos ver que el pais del continetne asiatico que presenta ese comportamiento es Kuwait el cual alcanzo un valor maximo de PBI per capita de US$113.523,13 en el año 1957.
+
+
 
 \newpage
 
@@ -168,7 +180,7 @@ ggplot(AmericaS, aes(year, gdpPercap, colour=country))+
 ```
 
 
-En este grafico podemos analizar como varia el PBI per capita a lo largo de los años en los distintos paises de América del sur. Es interesante denotar que ningun pais ha tenido un crecimiento constante del PBI. Los casos de Bolivia y Paraguay se han mantenido ultimos durante varios años. En el caso de nuestro pais, se nota que ha crecido su PBI durante años hasta llegar al año 2002, esto probablemente sea debido a la crisis ya que años despues se puede ver como continua creciendo.
+En este grafico podemos analizar como varia el PBI per capita a lo largo de los años en los distintos paises de América del sur. Es interesante denotar que ningun pais ha tenido un crecimiento constante del PBI. Los casos de Bolivia y Paraguay se han mantenido ultimos durante varios años. En el caso de nuestro pais (Uruguay), se nota que aproximadamente desde el año 1960 su PBI ha crecido durante años hasta al año 2002, esto probablemente sea debido a la crisis ya que años despues se puede ver como continua creciendo.
 
 
 
