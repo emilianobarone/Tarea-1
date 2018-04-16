@@ -104,16 +104,6 @@ ggplot(gapminder, aes(lifeExp, year, colour=continent))+
 ```
 En este grafico se puede apreciar como varia la esperanza de vida a lo largo del tiempo dependiendo del continente bajo estudio. El caso que mas resalta es el del continente de Oceania, el cual siempre mantuvo una muy buena esperanza de vida, aunque en los alrededores del año 2005 se vio levemente superada por Asia y posteriormente por Europa. 
 
-El análisis de regresión ajusta una curva a travéz de los datos que representa la media de Y dado un valor
-especificado de X. Si ajustamos una regresión lineal a los datos consideramos “la curva media” como aquella
-que mejor ajusta a los datos.
-
-
-
-
-
-
-
 
 \newpage
 
